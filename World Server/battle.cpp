@@ -148,6 +148,8 @@ void CCharacter::NormalAttack( CCharacter* Enemy )
     bool critical = false;
     int hitvalue = GetHitRate(Enemy);
 
+	/* Log(MSG_INFO, "NormalAttack"); */
+
 /*
     if (hitvalue < 20)
       if (int((float(Stats->Level - Enemy->Stats->Level) * 0.6f) + float((rand() % 100) + 1)) >= 94)
@@ -238,6 +240,8 @@ void CCharacter::NormalAttack( CCharacter* Enemy )
     ADDDWORD   ( pak, hitpower );
 #endif
 
+	/* Log(MSG_INFO, "Enemy is dead : %i", Enemy->IsDead()); */
+
     if(Enemy->IsDead())
     {
         CDrop* thisdrop = NULL;
@@ -281,6 +285,7 @@ void CCharacter::NormalAttack( CCharacter* Enemy )
 #else
         ADDDWORD   ( pak, (hitpower>0?(critical?12:0):0) );
 #endif
+		/* Log(MSG_INFO, "packet sent"); */
         GServer->SendToVisible( &pak, Enemy );
     }
     ReduceABC( );

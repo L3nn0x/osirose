@@ -233,7 +233,7 @@ PVOID VisibilityProcess(PVOID TS)
                 if( GServer->Config.AUTOSAVE == 1 )
                 {                         
                     clock_t etime = clock() - player->lastSaveTime;   
-                    if( etime >= GServer->Config.SAVETIME*1000 )  
+                    if( etime >= GServer->Config.SAVETIME * CLOCKS_PER_SEC )  
                     {
                         player->savedata( );
                         player->lastSaveTime = clock();
