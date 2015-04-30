@@ -1,0 +1,3 @@
+- Write real makefiles
+- Clean and remove all warnings in code
+- Solve quest bug (quests are not given to the character)
