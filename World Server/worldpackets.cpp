@@ -1130,13 +1130,15 @@ bool CWorldServer::pakGate( CPlayer* thisclient, CPacket* P )
     UINT map = 0;
     // I'm setting this at 50 distance from the point of teleport. Increase if you run into
     // broken telegates. We might need to dump the scale and work from that - Drakia
+	Log(MSG_INFO, "Gate %f %f", thisgate->src.x, thisgate->src.y);
+	Log(MSG_INFO, "distance : %f", distance(thisclient->Position->current, thisgate->src));
     if ( thisgate == NULL ||
             thisclient->Position->Map != thisgate->srcMap ||
-            distance(thisclient->Position->current, thisgate->src) > 50 )
+            distance(thisclient->Position->current, thisgate->src) > 150 /*50*/ )
     {
         Log( MSG_HACK, "Player %s[Map: %i X: %f Y: %f] - Gate Hacking[ID: %i]",
              thisclient->CharInfo->charname, thisclient->Position->Map,
-             thisclient->Position->current.x, thisclient->Position->current.y, GateID );
+             thisclient->Position->current.x, thisclient->Position->current.y, GateID);
         return true;
     }
     map = thisgate->destMap;

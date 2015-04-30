@@ -106,7 +106,7 @@ MYSQL_RES* CDatabase::QStore( char *Format, ...)
             {
                 Log( MSG_FATALERROR, "Could not execute query: %s", mysql_error( Mysql ) );   
                 pthread_mutex_unlock( &SQLMutex );        
-                return false;
+                return 0;
             }
             else Qfail = false;
         }    
@@ -137,7 +137,7 @@ MYSQL_RES* CDatabase::QUse( char *Format, ...)
             {
                 Log( MSG_FATALERROR, "Could not execute query: %s", mysql_error( Mysql ) );   
                 pthread_mutex_unlock( &SQLMutex );        
-                return false;
+                return 0;
             }
             else Qfail = false;
         }    
