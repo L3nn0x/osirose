@@ -48,7 +48,7 @@ bool CServerSocket::StartServer( )
 	sock = socket( AF_INET, SOCK_STREAM, 0 );
 	if (sock == INVALID_SOCKET) 
     {
-		Log( MSG_FATALERROR, "Could not create a socket" );
+		Log( MSG_FATALERROR, "Could not create a socket : %s", strerror(errno) );
 		return false;
 	}
 
@@ -64,14 +64,14 @@ bool CServerSocket::StartServer( )
 	memset(&(ain.sin_zero), '\0', 8);
 	if ( bind( sock, (const sockaddr*)&ain, sizeof( struct sockaddr ) ) ) 
     {
-		Log( MSG_FATALERROR, "Could not bind socket: %i", errno );
+		Log( MSG_FATALERROR, "Could not bind socket: %s", strerror(errno) );
 		closesocket( sock );
 		sock = INVALID_SOCKET;
 		return false;
 	}
 	if ( listen( sock, SOMAXCONN ) == -1 )
     {
-		Log( MSG_FATALERROR, "Could not listen on socket" );
+		Log( MSG_FATALERROR, "Could not listen on socket : %s", strerror(errno) );
 		closesocket( sock );
 		sock = INVALID_SOCKET;
 		return false;
@@ -96,14 +96,14 @@ bool CServerSocket::StartServer( )
 	    memset(&(sain.sin_zero), '\0', 8);
 	    if ( bind( sckISC, (const sockaddr*)&sain, sizeof( struct sockaddr ) ) ) 
         {
-		    Log( MSG_FATALERROR, "Could not bind socket: %i", errno );
+		    Log( MSG_FATALERROR, "Could not bind socket: %s", strerror(errno) );
             closesocket( sckISC );
 		    sckISC = INVALID_SOCKET;
 		    return false;
 	    }
 	    if ( listen( sckISC, SOMAXCONN ) == -1 )
         {
-		    Log( MSG_FATALERROR, "Could not listen on socket" );
+		    Log( MSG_FATALERROR, "Could not listen on socket : %s", strerror(errno) );
 		    closesocket( sckISC );
 		    sckISC = INVALID_SOCKET;
 		    return false;
@@ -148,14 +148,14 @@ bool CServerSocket::StartServer( )
 	    memset(&(sain.sin_zero), '\0', 8);
 	    if ( bind( sckISCII, (const sockaddr*)&sain, sizeof( struct sockaddr ) ) ) 
         {
-		    Log( MSG_FATALERROR, "Could not bind socket: %i", errno );
+		    Log( MSG_FATALERROR, "Could not bind socket: %s", strerror(errno) );
             closesocket( sckISCII );
 		    sckISCII = INVALID_SOCKET;
 		    return false;
 	    }
 	    if ( listen( sckISCII, SOMAXCONN ) == -1 )
         {
-		    Log( MSG_FATALERROR, "Could not listen on socket" );
+		    Log( MSG_FATALERROR, "Could not listen on socket : %s", strerror(errno) );
 		    closesocket( sckISCII );
 		    sckISCII = INVALID_SOCKET;
 		    return false;
@@ -172,7 +172,7 @@ bool CServerSocket::StartServer( )
     	}
 		if (listen(sckISC, SOMAXCONN) == -1)
 		{
-			Log(MSG_FATALERROR, "Could not listen on socket");
+			Log(MSG_FATALERROR, "Could not listen on socket : %s", strerror(errno));
 			closesocket(sckISC);
 			sckISC = INVALID_SOCKET;
 			return false;
