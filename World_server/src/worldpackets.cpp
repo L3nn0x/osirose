@@ -1134,7 +1134,7 @@ bool CWorldServer::pakGate( CPlayer* thisclient, CPacket* P )
 	Log(MSG_INFO, "distance : %f", distance(thisclient->Position->current, thisgate->src));
     if ( thisgate == NULL ||
             thisclient->Position->Map != thisgate->srcMap ||
-            distance(thisclient->Position->current, thisgate->src) > 150 /*50*/ )
+            distance(thisclient->Position->current, thisgate->src) > 200 /*50*/ )
     {
         Log( MSG_HACK, "Player %s[Map: %i X: %f Y: %f] - Gate Hacking[ID: %i]",
              thisclient->CharInfo->charname, thisclient->Position->Map,

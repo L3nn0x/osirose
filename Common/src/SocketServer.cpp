@@ -64,7 +64,7 @@ bool CServerSocket::StartServer( )
 	memset(&(ain.sin_zero), '\0', 8);
 	if ( bind( sock, (const sockaddr*)&ain, sizeof( struct sockaddr ) ) ) 
     {
-		Log( MSG_FATALERROR, "Could not bind socket" );
+		Log( MSG_FATALERROR, "Could not bind socket: %s", errno );
 		closesocket( sock );
 		sock = INVALID_SOCKET;
 		return false;
@@ -96,7 +96,7 @@ bool CServerSocket::StartServer( )
 	    memset(&(sain.sin_zero), '\0', 8);
 	    if ( bind( sckISC, (const sockaddr*)&sain, sizeof( struct sockaddr ) ) ) 
         {
-		    Log( MSG_FATALERROR, "Could not bind socket" );
+		    Log( MSG_FATALERROR, "Could not bind socket: %s", errno );
             closesocket( sckISC );
 		    sckISC = INVALID_SOCKET;
 		    return false;
@@ -148,7 +148,7 @@ bool CServerSocket::StartServer( )
 	    memset(&(sain.sin_zero), '\0', 8);
 	    if ( bind( sckISCII, (const sockaddr*)&sain, sizeof( struct sockaddr ) ) ) 
         {
-		    Log( MSG_FATALERROR, "Could not bind socket" );
+		    Log( MSG_FATALERROR, "Could not bind socket: %s", errno );
             closesocket( sckISCII );
 		    sckISCII = INVALID_SOCKET;
 		    return false;

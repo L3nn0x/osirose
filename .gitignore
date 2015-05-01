@@ -2,3 +2,6 @@
 Binary/log/*
 *.o
 *.d
+login_server
+char_server
+world_server

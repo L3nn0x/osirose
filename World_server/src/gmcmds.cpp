@@ -314,14 +314,19 @@ bool CWorldServer::pakGMCommand( CPlayer* thisclient, CPacket* P )
  
     else if (strcmp(command, "go")==0) // Use SQL by Likol
     {
- 
+		Log(MSG_WARNING, "/go not implemented");
+		return true;
         if(Config.Command_Go > thisclient->Session->accesslevel)
         {
         DB->QFree( );
         return true;
         }
         if ((tmp = strtok(NULL, " ")) == NULL) tmp = 0;
-        int loc = atoi(tmp);
+        int loc;
+		if (!tmp)
+			loc = 0;
+		else
+			loc = atoi(tmp);
         /* int x = 0; */
         /* int y = 0; */
         /* int map = 0; */
@@ -1946,7 +1951,7 @@ bool CWorldServer::pakGMAnn( CPlayer* thisclient, CPacket *P )
 {
     BEGINPACKET( pak, 0x702 );
     ADDSTRING( pak, thisclient->CharInfo->charname );
-    ADDSTRING( pak, "> " );
+    ADDSTRING( pak, " : " );
     ADDSTRING( pak, (&P->Buffer[5]));
     ADDBYTE( pak, 0x00);
     SendToAll( &pak );
