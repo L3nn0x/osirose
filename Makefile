@@ -1,21 +1,37 @@
+include Makefile.common
+
+DIREXE = $(PREFIX)/Binary
+
+all: common login char world
+
 login:
-	$(MAKE) -C Login\ Server
+	$(MAKE) -C $(LOGINDIR)
 
 char:
-	$(MAKE) -C Char\ Server
+	$(MAKE) -C $(CHARDIR)
 
 world:
-	$(MAKE) -C World\ Server
+	$(MAKE) -C $(WORLDDIR)
 
-all: login char world
-	cp Login\ Server/login_server Binary/
-	cp Char\ Server/char_server Binary/
-	cp World\ Server/world_server Binary/
+common:
+	$(MAKE) -C $(COMMONDIR)
 
-re:
-	$(MAKE) -C Login\ Server re
-	$(MAKE) -C Char\ Server re
-	$(MAKE) -C World\ Server re
-	cp Login\ Server/login_server Binary/
-	cp Char\ Server/char_server Binary/
-	cp World\ Server/world_server Binary/
+copy:
+	$(CP) $(WORLDDIR)/$(WORLDEXE) $(DIREXE)/$(WORLDEXE)
+	$(CP) $(CHARDIR)/$(CHAREXE) $(DIREXE)/$(CHAREXE)
+	$(CP) $(LOGINDIR)/$(LOGINEXE) $(DIREXE)/$(LOGINEXE)
+
+clean:
+	$(MAKE) -C $(WORLDDIR) $@
+	$(MAKE) -C $(CHARDIR) $@
+	$(MAKE) -C $(LOGINDIR) $@
+	$(MAKE) -C $(COMMONDIR) $@
+
+fclean:
+	$(MAKE) -C $(WORLDDIR) $@
+	$(MAKE) -C $(CHARDIR) $@
+	$(MAKE) -C $(LOGINDIR) $@
+	$(MAKE) -C $(COMMONDIR) $@
+	$(RM) -f $(DIREXE)/$(WORLDEXE)
+	$(RM) -f $(DIREXE)/$(CHAREXE)
+	$(RM) -f $(DIREXE)/$(LOGINEXE)

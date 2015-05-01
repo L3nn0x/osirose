@@ -1,6 +1,6 @@
 #ifndef _ROSE_DATABASE_
 #define _ROSE_DATABASE_
-#include "../sockets.h"
+#include "sockets.h"
 
 class CDatabase
 {
@@ -20,11 +20,11 @@ class CDatabase
         void Disconnect( );
         bool QExecute( char *format,... );
         MYSQL_RES* QUse( char *format,... );
-        MYSQL_RES* QStore( char *format,... );                
+        MYSQL_RES* QStore( char *format,... );
         bool DoSQL(char *Format, ...);
         void QFree( );
         bool Ping( );
-        
+
         MYSQL* Mysql;
         MYSQL_RES* result;
         pthread_mutex_t SQLMutex;

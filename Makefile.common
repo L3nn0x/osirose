@@ -1,0 +1,25 @@
+export PREFIX = /home/faerie/rose/trunk
+
+export CC = g++
+
+export CFLAGS = -g -Wall -Werror -std=c++11 $(shell mysql_config --cflags)
+
+export INC = -I$(PREFIX)$(COMMONDIR)
+
+export LDFLAGS = $(shell mysql_config --libs)
+
+export WORLDEXE = world_server
+
+export CHAREXE = char_server
+
+export LOGINEXE = login_server
+
+export WORLDDIR = $(PREFIX)/World_server
+
+export CHARDIR = $(PREFIX)/Char_server
+
+export LOGINDIR = $(PREFIX)/Login_server
+
+export COMMONDIR = $(PREFIX)/Common
+
+.PHONY: clean fclean re

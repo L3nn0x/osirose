@@ -1,2 +1,4 @@
 .svn
 Binary/log/*
+*.o
+*.d
