@@ -5,3 +5,4 @@ Binary/log/*
 login_server
 char_server
 world_server
+*.sw*
