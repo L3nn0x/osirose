@@ -49,6 +49,7 @@ CLoginClient* CLoginServer::CreateClientSocket( )
      {
          Log(MSG_ERROR, "Error in CreateClientSocket");
      }
+	 return nullptr;
 }
 
 //loadserver encryption

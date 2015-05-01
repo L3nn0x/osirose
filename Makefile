@@ -17,9 +17,9 @@ common:
 	$(MAKE) -C $(COMMONDIR)
 
 copy:
-	$(CP) $(WORLDDIR)/$(WORLDEXE) $(DIREXE)/$(WORLDEXE)
-	$(CP) $(CHARDIR)/$(CHAREXE) $(DIREXE)/$(CHAREXE)
-	$(CP) $(LOGINDIR)/$(LOGINEXE) $(DIREXE)/$(LOGINEXE)
+	cp $(WORLDDIR)/$(WORLDEXE) $(DIREXE)/$(WORLDEXE)
+	cp $(CHARDIR)/$(CHAREXE) $(DIREXE)/$(CHAREXE)
+	cp $(LOGINDIR)/$(LOGINEXE) $(DIREXE)/$(LOGINEXE)
 
 clean:
 	$(MAKE) -C $(WORLDDIR) $@
@@ -35,3 +35,5 @@ fclean:
 	$(RM) -f $(DIREXE)/$(WORLDEXE)
 	$(RM) -f $(DIREXE)/$(CHAREXE)
 	$(RM) -f $(DIREXE)/$(LOGINEXE)
+
+re: fclean all

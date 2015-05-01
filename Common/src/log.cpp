@@ -28,9 +28,11 @@ typedef enum
     WHITE
 } COLORS;
 
-// Our base colors
-static int __BACKGROUND = BLACK;
-static int __FOREGROUND = LIGHTGRAY;
+#ifdef _WIN32
+	// Our base colors
+	static int __BACKGROUND = BLACK;
+	static int __FOREGROUND = LIGHTGRAY;
+#endif
 
 // Change console text color
 void textcolor(int color)
@@ -44,7 +46,7 @@ void textcolor(int color)
 }
 
 // This function logs based on flags
-void Log( enum msg_type flag, char *Format, ... )
+void Log( enum msg_type flag, const char *Format, ... )
 {
 	va_list ap;	      // For arguments
 	va_start( ap, Format );
@@ -103,6 +105,8 @@ void Log( enum msg_type flag, char *Format, ... )
             vprintf( Format, ap );
             printf( "\r\n" );
             break;                    								
+		default:
+			break;
 	}
 	textcolor(LIGHTGRAY);
 	if(flag!=MSG_QUERY)

@@ -12,21 +12,24 @@ SRC = $(wildcard $(SRCDIR)/*.cpp)
 
 OBJ = $(subst $(SRCDIR), $(OBJDIR), $(SRC:.cpp=.o))
 
-all:
-	@echo $(INC)
+all: common $(EXE)
+
+common:
+	$(MAKE) -C $(COMMONDIR) $(COMMONOBJ)
 
 $(EXE): $(OBJ)
-	$(CC) $^ -o $@ $(LDFLAGS)
+	$(CC) $^ $(COMMONOBJ) -o $@ $(LDFLAGS)
 
 clean:
 	$(RM) $(OBJ)
+	$(MAKE) -C $(COMMONDIR) $@
 
 fclean: clean
 	$(RM) $(EXE)
 
 re: fclean all
 
-include $(OBJ:.o:.d)
+include $(SRC:.cpp:.d)
 
 %.d: %.cpp
 	$(CC) $(CFLAGS) $(INC) -MM $^ > $@

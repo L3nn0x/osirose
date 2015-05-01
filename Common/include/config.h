@@ -1,7 +1,7 @@
 /*******************************************************************************************
-      ___  ___  ___ ___ 
+      ___  ___  ___ ___
   ___| _ \/ _ \/ __| __|
- / -_)   / (_) \__ \ _| 
+ / -_)   / (_) \__ \ _|
  \___|_|_\\___/|___/___|
 
  eROSE Server Develped by Brett19.
@@ -15,8 +15,8 @@
 // -----------------------------------------------------------------------------------------
 // Config load functions
 // -----------------------------------------------------------------------------------------
-char *ConfigGetString( char *pcFile, char *pcName, char *pcDefault );
-unsigned ConfigGetInt( char *pcFile, char *pcName, unsigned uDefault );
+char *ConfigGetString( const char *pcFile, const char *pcName, const char *pcDefault );
+unsigned ConfigGetInt( const char *pcFile, const char *pcName, unsigned uDefault );
 
 // -----------------------------------------------------------------------------------------
 

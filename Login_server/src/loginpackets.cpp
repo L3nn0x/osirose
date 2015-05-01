@@ -36,6 +36,7 @@ bool CLoginServer::pakEncryptionRequest( CLoginClient* thisclient, CPacket* P )
     {
         Log(MSG_ERROR, "pakEncryptionRequest");
     }
+	return false;
 }
 
 // Packet when user login (chck user and pass)
@@ -90,7 +91,7 @@ bool CLoginServer::pakUserLogin( CLoginClient* thisclient, CPacket* P )
     				ADDBYTE( pak, 0 );
     				result = DB->QStore( "SELECT id,name FROM channels WHERE owner=0" );
                     if(result==NULL) return false;
-    				while( row = mysql_fetch_row(result) ) 
+    				while( (row = mysql_fetch_row(result)) ) 
                     {
                         if (Config.Testserver){ADDBYTE( pak, 63 + atoi( row[0] ) );}
     					else{
@@ -139,7 +140,7 @@ bool CLoginServer::pakUserLogin( CLoginClient* thisclient, CPacket* P )
     {
         Log(MSG_ERROR, "Error in pakUserLogin");
     }
-              
+	return false;              
 }
 
 // Send server list
@@ -155,7 +156,7 @@ bool CLoginServer::pakGetServers( CLoginClient* thisclient, CPacket* P )
     	BEGINPACKET( pak, 0x704 );
     	ADDDWORD   ( pak, servernum );
     	ADDBYTE    ( pak, (BYTE)mysql_num_rows( result ) ); //old function
-    	while(row = mysql_fetch_row(result)) 
+    	while((row = mysql_fetch_row(result))) 
         {
         	UINT connected = atoi(row[2]);
         	UINT maxconnections = atoi(row[3]);
@@ -176,6 +177,7 @@ bool CLoginServer::pakGetServers( CLoginClient* thisclient, CPacket* P )
     {
         Log(MSG_ERROR, "Error in pakGetServers");
     }
+	return false;
 }
 
 // Send server IP
@@ -204,8 +206,8 @@ bool CLoginServer::pakGetIP( CLoginClient* thisclient, CPacket* P )
             return true;
         }
     	row = mysql_fetch_row(result);
-    	UINT connected = atoi(row[2]);
-    	UINT maxconnections = atoi(row[3]);
+    	/* UINT connected = atoi(row[2]); */
+    	/* UINT maxconnections = atoi(row[3]); */
     	
     	ADDBYTE( pak, 0 ); //atoi(row[0]) ); // What is status? It's NULL in tables - Drakia
     	ADDDWORD( pak, thisclient->userid );
@@ -221,5 +223,6 @@ bool CLoginServer::pakGetIP( CLoginClient* thisclient, CPacket* P )
     {
         Log(MSG_ERROR, "Error in pakGetIP");
     }
+	return false;
 }
 

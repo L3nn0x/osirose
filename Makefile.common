@@ -4,7 +4,7 @@ export CC = g++
 
 export CFLAGS = -g -Wall -Werror -std=c++11 $(shell mysql_config --cflags)
 
-export INC = -I$(PREFIX)$(COMMONDIR)
+export INC = -I$(COMMONDIR)/include
 
 export LDFLAGS = $(shell mysql_config --libs)
 
@@ -13,6 +13,8 @@ export WORLDEXE = world_server
 export CHAREXE = char_server
 
 export LOGINEXE = login_server
+
+export COMMONOBJ = $(subst $(COMMONDIR)/src, $(COMMONDIR)/obj, $(COMMONSRC:.cpp=.o))
 
 export WORLDDIR = $(PREFIX)/World_server
 
@@ -23,3 +25,5 @@ export LOGINDIR = $(PREFIX)/Login_server
 export COMMONDIR = $(PREFIX)/Common
 
 .PHONY: clean fclean re
+
+export COMMONSRC = $(wildcard $(COMMONDIR)/src/*.cpp) $(wildcard $(COMMONDIR)/src/database/*.cpp)

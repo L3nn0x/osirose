@@ -59,7 +59,7 @@ unsigned ctGenerateNextValue( CCryptTable *CryptTables, CCryptTableControlStruct
 	int Value = ControlStruct->ValueTableMod[ ControlStruct->CurTableMod ];
 
 	// Update generatecount, depending on the current TableMod
-	ControlStruct->CountTableMod            [ ControlStruct->CurTableMod ];
+	//ControlStruct->CountTableMod            [ ControlStruct->CurTableMod ];
 
 	// Calculate and return the next value
 	switch ( ControlStruct->CurTableMod )
@@ -237,7 +237,7 @@ void GenerateLoginServerCryptTables( CCryptTable* &CryptTables )
 	do
 	{
 		// Generate next value for table
-		ControlStruct.CountTableMod[1];
+		//ControlStruct.CountTableMod[1];
 		ivalue  = ControlStruct.ValueTableMod[1];
 		ivalue *= 0x3E39B193;
 		value   = (0x3039 - (unsigned)ivalue) & 0x7FFFFFFF;

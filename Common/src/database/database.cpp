@@ -1,5 +1,5 @@
-#include "database.h"
-#include "../log.h"
+#include "database/database.h"
+#include "log.h"
 
 // constructor
 CDatabase::CDatabase( char* server , char* username, char* password, char* database, unsigned int port , MYSQL* mysql)
@@ -56,7 +56,7 @@ int CDatabase::Reconnect( )
 }
 
 // execute query
-bool CDatabase::QExecute( char *Format,... )
+bool CDatabase::QExecute( const char *Format,... )
 {
     bool Qfail = true;
     char query[80000];
@@ -85,7 +85,7 @@ bool CDatabase::QExecute( char *Format,... )
     return true;    
 }
 
-MYSQL_RES* CDatabase::QStore( char *Format, ...)
+MYSQL_RES* CDatabase::QStore( const char *Format, ...)
 {
     bool Qfail = true;    
     char query[80000];
@@ -117,7 +117,7 @@ MYSQL_RES* CDatabase::QStore( char *Format, ...)
     return result;
 }
 
-MYSQL_RES* CDatabase::QUse( char *Format, ...)
+MYSQL_RES* CDatabase::QUse( const char *Format, ...)
 {
     bool Qfail = true;    
     char query[1024];
@@ -147,7 +147,7 @@ MYSQL_RES* CDatabase::QUse( char *Format, ...)
     return result;
 }
 
-bool CDatabase::DoSQL(char *Format, ...) {
+bool CDatabase::DoSQL(const char *Format, ...) {
     int retval;
 	char Buffer[1024];
 	va_list ap; va_start( ap, Format );
@@ -166,7 +166,7 @@ void CDatabase::QFree( )
 
 bool CDatabase::Ping( )
 {
-    if ( time( NULL ) > ( LastPing + Timeout ) ) {
+    if ( (unsigned int)time( NULL ) > ( LastPing + Timeout ) ) {
       Log(MSG_INFO, "MySql Ping");
       LastPing = time( NULL );
       MYSQL_RES *res = QStore("SELECT @@wait_timeout");

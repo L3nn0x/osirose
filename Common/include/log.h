@@ -1,6 +1,6 @@
 /*
     Open Source Rose Online Team - http://osroseon.to.md/
-    note: the Server is develop with erose source server + eich source        
+    note: the Server is develop with erose source server + eich source
 */
 #ifndef __ROSE_LOGGING_FUNCTIONS__
 #define __ROSE_LOGGING_FUNCTIONS__
@@ -52,6 +52,6 @@ enum msg_type {
 };
 
 // Logging function
-void Log( msg_type flag, char* Format, ... );
+void Log( msg_type flag, const char* Format, ... );
 
 #endif

@@ -1,19 +1,38 @@
-CC = g++
+include ../Makefile.common
 
-INC = -I. -I../Common
+INC += -I$(CHARDIR)/include
 
-EXE = char_server
+EXE = $(CHAREXE)
 
-SRC = $(wildcard *.cpp) $(wildcard ../Common/*.cpp) $(wildcard ../Common/database/*.cpp)
+SRCDIR = $(CHARDIR)/src
 
-LIBMYSQL = $(shell mysql_config --libs)
+OBJDIR = $(CHARDIR)/obj
 
-FLAGSMYSQL = $(shell mysql_config --cflags) -g
+SRC = $(wildcard $(SRCDIR)/*.cpp)
 
-$(EXE):
-	$(CC) $(FLAGSMYSQL) $(LIBMYSQL) $(INC) -o$(EXE) $(SRC)
+OBJ = $(subst $(SRCDIR), $(OBJDIR), $(SRC:.cpp=.o))
+
+all: common $(EXE)
+
+common:
+	$(MAKE) -C $(COMMONDIR) $(COMMONOBJ)
+
+$(EXE): $(OBJ)
+	$(CC) $^ $(COMMONOBJ) -o $@ $(LDFLAGS)
 
 clean:
-	rm $(EXE)
+	$(RM) $(OBJ)
+	$(MAKE) -C $(COMMONDIR) $@
 
-re: clean $(EXE)
+fclean: clean
+	$(RM) $(EXE)
+
+re: fclean all
+
+include $(SRC:.cpp:.d)
+
+%.d: %.cpp
+	$(CC) $(CFLAGS) $(INC) -MM $^ > $@
+
+$(OBJDIR)/%.o:$(SRCDIR)/%.cpp
+	$(CC) $(CFLAGS) $(INC) -o $@ -c $<

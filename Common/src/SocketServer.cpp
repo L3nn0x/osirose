@@ -164,7 +164,7 @@ bool CServerSocket::StartServer( )
     }
     if (LOG_THISSERVER == LOG_LOGIN_SERVER)
     {
-        struct sockaddr_in ain;
+        /* struct sockaddr_in ain; */
     	sckISC = socket( AF_INET, SOCK_STREAM, 0 );
     	if (sckISC == INVALID_SOCKET) {
     		Log( MSG_ERROR, "Could not create valid ISC socket (WSK2 ERROR: %i)", WSAGetLastError( ) );
@@ -212,7 +212,7 @@ void CServerSocket::CryptISCPak( char* pak )
 bool CClientSocket::ISCThread()
 {
     unsigned char buffer[0x400];
-	unsigned recvd = 0;
+	int recvd = 0;
 	unsigned bufsize = 0;
 	unsigned readlen = 6;
 	bool go = true;
@@ -422,7 +422,7 @@ void CServerSocket::AddUser( SOCKET sock, sockaddr_in* ClientInfo, bool server )
 	}
 	thisclient->ClientIP = "";
     thisclient->ClientIP = inet_ntoa( ClientInfo->sin_addr );
-    char *tmp;
+    /* char *tmp; */
     memset(&thisclient->ClientSubNet, '\0', 12 );
     sprintf(thisclient->ClientSubNet, "%i.%i.%i",
            (ClientInfo->sin_addr.s_addr )&0xFF, (ClientInfo->sin_addr.s_addr>>8 )&0xFF,
