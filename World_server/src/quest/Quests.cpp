@@ -1,11 +1,19 @@
 // Props to ExJam for this code :D
 #include "worldserver.h"
+#include <string>
+#include <cctype>
 
 void CWorldServer::ReadQSD(strings path, dword index){	
-	CRoseFile* fh = new CRoseFile(path, FM_READ | FM_BINARY);
+	string	tmp("3DData/QUESTDATA/");
+	while (*++path != '\\');
+	while (*++path != '\\');
+	while (*path != 0)
+		tmp.push_back(tolower(*++path));
+	/* Log(MSG_INFO, "Openning : %s", tmp.c_str()); */
+	CRoseFile* fh = new CRoseFile(tmp.c_str(), FM_READ | FM_BINARY);
 	if(fh->IsOpen()) { // goto done;
 
-	Log(MSG_LOAD, "Loading %s                              ", path);
+	Log(MSG_LOAD, "Loading %s                              ", tmp.c_str());
 
 	fh->Seek(4, SEEK_CUR);
 	dword BlockCount = fh->Get<dword>();
@@ -57,17 +65,19 @@ void CWorldServer::ReadQSD(strings path, dword index){
 		}
 	}
 }else
-     Log( MSG_ERROR, "QSD File: '%s'", path );
+     Log( MSG_ERROR, "QSD File: '%s'", tmp.c_str() );
      
     fh->Close();
 	delete fh;
 }
 
 void CWorldServer::LoadQuestData(){
-	CStrStb* stbQuest = new CStrStb("3DDATA\\STB\\LIST_QUESTDATA.STB");
+	CStrStb* stbQuest = new CStrStb("3DData/STB/LIST_QUESTDATA.STB");
+	Log(MSG_INFO, "Loading %i quests", stbQuest->Rows());
 	
 	for(dword i = 1; i < stbQuest->Rows(); i++){
 		if(stbQuest->Data(i, 0)){
+			/* Log(MSG_INFO, "Reading QSD file : %s", stbQuest->Data(i, 0)); */
 			GServer->ReadQSD(stbQuest->Data(i, 0),i);
 		}
 	}

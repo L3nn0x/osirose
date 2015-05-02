@@ -22,6 +22,9 @@
 #include "worldserver.h"
 //#pragma comment(lib,"ws2_32.lib")
 
+void	StartSignal();
+void	StopSignal();
+
 CWorldServer* GServer;
 
 unsigned char LOG_THISSERVER;
@@ -29,6 +32,7 @@ unsigned char LOG_THISSERVER;
 // Main server function
 int main(int argc, char *argv[]) 
 {
+	StartSignal();
     srand( (unsigned)time(NULL) );
     srand( rand()*time(NULL) );         
 	LOG_THISSERVER = LOG_WORLD_SERVER;
@@ -75,6 +79,7 @@ int main(int argc, char *argv[])
 	CloseWinSocket( );	
 	Log(MSG_INFO, "Cleaning memory, please wait..." );
 	delete server;         	
+	StopSignal();
 	return EXIT_SUCCESS;
 }
 

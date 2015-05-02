@@ -64,6 +64,8 @@ QUESTREWD(000)
 {
     GETREWDDATA(000);
 
+	Log(MSG_INFO, "Update Quest");
+
     switch (data->btOp) //0 remove, 1 start, 2 replace quest keep items, 3 replace quest delete items, 4 select
     {
     case 0:
@@ -511,6 +513,7 @@ QUESTREWD(011)
 //NPC Speak
 QUESTREWD(012)
 {
+	Log(MSG_INFO, "Quest NPC Speak");
     /*if(entity->_EntityType != ENTITY_NPC) return QUEST_FAILURE;
     GETREWDDATA(012);
 

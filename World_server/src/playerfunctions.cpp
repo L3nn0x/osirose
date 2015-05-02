@@ -516,6 +516,7 @@ int CPlayer::ExecuteQuestTrigger(dword hash)
     CQuestTrigger* trigger = NULL;
     CQuestTrigger* nexttrigger = NULL;
     CheckQuest = -1;
+	Log(MSG_INFO, "Trigger size : %i", (int)GServer->TriggerList.size());
     for(unsigned j=0; j < GServer->TriggerList.size(); j++)
     {
       if (GServer->TriggerList.at(j)->TriggerHash == hash)
@@ -525,15 +526,16 @@ int CPlayer::ExecuteQuestTrigger(dword hash)
         break;
       }
     }
+	Log(MSG_INFO, "Quest is %i", trigger != NULL);
     if (trigger == NULL) return QUEST_FAILURE;
 
     int success = QUEST_SUCCESS;
- //   Log(MSG_DEBUG, "Trigger Executed: %s[%i]", trigger->TriggerName, trigger->CheckNext);
+    Log(MSG_INFO, "Trigger Executed: %s[%i]", trigger->TriggerName, trigger->CheckNext);
     for (dword i = 0; i < trigger->ConditionCount; i++) {
       int command = trigger->Conditions[i]->opcode;
       if (command > 30 || command < 0) continue;
       success = (*GServer->qstCondFunc[command])(GServer, this, trigger->Conditions[i]->data);
-    //  Log(MSG_DEBUG, "Condition %03u returned %d", command, success);
+      Log(MSG_DEBUG, "Condition %03u returned %d", command, success);
       if (success == QUEST_FAILURE) {
         if (!trigger->CheckNext) return success;
         else return ExecuteQuestTrigger(nexttrigger->TriggerHash);
@@ -543,7 +545,7 @@ int CPlayer::ExecuteQuestTrigger(dword hash)
       int command = trigger->Actions[i]->opcode;
       if (command > 28 || command < 0) continue;
       success = (*GServer->qstRewdFunc[command])(GServer, this, trigger->Actions[i]->data);
-   //   Log(MSG_DEBUG, "Reward %03u returned %d", command, success);
+      Log(MSG_INFO, "Reward %03u returned %d", command, success);
     }
     return success;
 }

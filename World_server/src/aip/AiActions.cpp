@@ -29,7 +29,7 @@ AIACT(001)
 AIACT(002)
 {
     //Client side say text
-    //Log(MSG_DEBUG, "Say LTB String");
+    /* Log(MSG_DEBUG, "Say LTB String"); */
     return AI_SUCCESS;
 }
 

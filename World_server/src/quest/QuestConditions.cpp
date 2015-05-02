@@ -238,6 +238,7 @@ QUESTCOND(010){
 
 //Object Variable
 QUESTCOND(011){
+	Log(MSG_INFO, "Quest cond 011, NPC ?");
 /*	if(entity->_EntityType != ENTITY_NPC) return QUEST_FAILURE;
 	GETCONDDATA(011);
 

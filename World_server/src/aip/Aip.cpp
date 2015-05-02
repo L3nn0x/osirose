@@ -1,15 +1,24 @@
 // Props to ExJam for this code :D
 #include "worldserver.h"
+#include <cctype>
 
 void CWorldServer::ReadAIP(strings path, dword index){	
-	CRoseFile* fh = new CRoseFile(path, FM_READ | FM_BINARY);
+	string	tmp("3DData/AI/");
+	while (*++path != '\\');
+	while (*++path != '\\');
+	while (*path != 0)
+		tmp.push_back(tolower(*++path));
+	/* Log(MSG_INFO, "Openning : %s", tmp.c_str()); */
+	CRoseFile* fh = new CRoseFile(tmp.c_str(), FM_READ | FM_BINARY);
 	if(fh->IsOpen()) { // goto done;
 
-//	Log(MSG_LOAD, "Loading %s                              ", path);
+	Log(MSG_LOAD, "Loading %s                              ", tmp.c_str());
 
 	dword BlockCount = fh->Get<dword>();
-    /* dword unknown1 = fh->Get<dword>(); */
-	/* dword unknown2 = fh->Get<dword>(); */
+    dword unknown1 = fh->Get<dword>();
+	dword unknown2 = fh->Get<dword>();
+	(void)unknown1;
+	(void)unknown2;
 	dword titlestringlength = fh->Get<dword>();
 	strings title=new char[titlestringlength+1];
 	strings title2=new char[32+1];
@@ -66,21 +75,22 @@ void CWorldServer::ReadAIP(strings path, dword index){
 		}
 	}
 }else
-     Log( MSG_ERROR, "AIP File: '%s'", path );
+     Log( MSG_ERROR, "AIP File: '%s'", tmp.c_str() );
      
     fh->Close();
 	delete fh;
 }
 
 void CWorldServer::LoadAipData(){
-	CStrStb* stbAip = new CStrStb("3DDATA/STB/FILE_AI.STB");
+	CStrStb* stbAip = new CStrStb("3DData/STB/FILE_AI.STB");
 	
+	Log(MSG_INFO, "Aip number : %i", stbAip->Rows());
 	for(dword i = 1; i < stbAip->Rows(); i++){
 		if(stbAip->Data(i, 0)){
 			GServer->ReadAIP(stbAip->Data(i, 0),i);
 		}
 	}
-//Log(MSG_INFO, "%i aip entrys",AipList.size());
+	Log(MSG_INFO, "%i aip entrys",AipList.size());
 	Log(MSG_INFO, "Finished loading aip data                              ");
 
 	aiCondFunc[0] = &F_AI_COND_000;

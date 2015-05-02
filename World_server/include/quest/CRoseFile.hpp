@@ -182,7 +182,7 @@ class CRoseFile
 			ftype = FT_NONE;
 			fmode = FM_NONE;	
 			flasterr = FE_SUCCESS;
-			Open( fname, mode );
+			Open(fname, mode );
 		}
 
 		//Destructors

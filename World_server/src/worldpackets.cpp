@@ -303,6 +303,7 @@ bool CWorldServer::pakQuestTrigger( CPlayer* thisclient, CPacket* pak )
     }
     if (action != 3) return false;
     int success = thisclient->ExecuteQuestTrigger(hash);
+	Log(MSG_INFO, "Quest success : %i", success);
     CPacket pakout(0x730);
     pakout.AddByte(success);
     pakout.AddByte(0);
