@@ -42,7 +42,7 @@ AIACT(003)
     GETAIACTDATA(003);
     CMonster* monster = reinterpret_cast<CMonster*>(entity);
     monster->UpdatePosition( );
-    int iDist = data->iDistance;// * 2;//Get it to our coord system!
+    int iDist = data->iDistance * 50;//Get it to our coord system!
 
 //	int randDis = rg.IRandom(0, iDist << 1);
 //    srand(time(NULL));

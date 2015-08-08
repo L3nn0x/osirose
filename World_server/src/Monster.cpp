@@ -22,7 +22,7 @@
 
 // update attack values and destiny  position
 bool CMonster::UpdateValues( )
-{     return true;
+{     
 /*    if(IsSummon( ))
     {
         CPlayer* thisclient = GetOwner( );

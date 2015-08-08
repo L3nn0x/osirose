@@ -83,7 +83,7 @@ unsigned int CMonster::GetMoveSpeed( )
         mspeed += MagicStatus[Status->Dash_up].Value;
     if(Status->Dash_down!=0xff)
         mspeed -= MagicStatus[Status->Dash_down].Value;
-    return mspeed;
+    return mspeed / 10; // temporary fix for speed
 }
 
 // return dodge

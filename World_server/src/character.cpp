@@ -143,13 +143,13 @@ void CCharacter::UpdatePosition( )
         else ClearBattle( Battle );
     }
     if(!IsMoving()){
-      /*  if(IsPlayer())*/Position->lastMoveTime = clock();
+      /*  if(IsPlayer()) */ Position->lastMoveTime = clock();
         return;
         }
 	float dx = Position->destiny.x - Position->current.x;
 	float dy = Position->destiny.y - Position->current.y;
 	float distance = sqrt( (dx*dx) + (dy*dy) );
-    float ntime = ( distance / (float(Stats->Move_Speed)/100)) * CLOCKS_PER_SEC;// * 100000 ); 
+    float ntime = ( distance / (float(Stats->Move_Speed)/100.f)) * CLOCKS_PER_SEC;// * 100000; 
     clock_t etime = clock() - Position->lastMoveTime;       	
 	if (ntime<=etime || distance==0) 
     {		

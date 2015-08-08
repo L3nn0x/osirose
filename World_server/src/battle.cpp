@@ -241,8 +241,8 @@ void CCharacter::NormalAttack( CCharacter* Enemy )
 #endif
 
 	/* Log(MSG_INFO, "Enemy is dead : %i", Enemy->IsDead()); */
-	if (critical)
-		Log(MSG_INFO, "Critical hit");
+	/* if (critical) */
+	/* 	Log(MSG_INFO, "Critical hit"); */
 
     if(Enemy->IsDead())
     {
@@ -292,6 +292,7 @@ void CCharacter::NormalAttack( CCharacter* Enemy )
     }
     ReduceABC( );
     Battle->lastAtkTime = clock( );
+	(void)critical;
 }
 
 // do skill attack
