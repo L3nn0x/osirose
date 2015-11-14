@@ -394,13 +394,10 @@ void CServerSocket::HandleClients( fd_set* fds )
 // Add a new user to our server
 void CServerSocket::AddUser( SOCKET sock, sockaddr_in* ClientInfo, bool server )
 {
-    ConnectedClients++;
+	ConnectedClients++;
 	CClientSocket* thisclient = this->CreateClientSocket( );
-	if (thisclient==NULL) 
-    { 
-		closesocket( thisclient->sock );
-		if (thisclient!=0) delete thisclient;
-		thisclient=0;
+	if ( thisclient == NULL )
+	{
 		return;
 	}
 #ifdef USE124
