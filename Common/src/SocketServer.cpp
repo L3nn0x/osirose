@@ -398,6 +398,7 @@ void CServerSocket::AddUser( SOCKET sock, sockaddr_in* ClientInfo, bool server )
 	CClientSocket* thisclient = this->CreateClientSocket( );
 	if ( thisclient == NULL )
 	{
+		closesocket( sock );
 		ConnectedClients--;
 		return;
 	}
